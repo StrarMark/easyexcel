@@ -1,27 +1,134 @@
+# 4.0.3
+
+* 兼容部分日期格式读取异常的问题
+
+# 4.0.2
+
+* 兼容某些特殊的xls: 修改了内置的样式导致判断样式错误
+* 重新加回 `commons-io`
+
+# 4.0.1
+
+* `commons-io` 修改为依赖 `poi`的版本
+* 修复临时目录被清理可能提示`NoSuchFileException`的异常
+
+# 4.0.0
+
+* `poi`由`4.1.2`升级到`5.2.5`
+* `commons-csv`由`1.1.0`升级到`1.10.0`
+* `slf4j-api`由`1.7.32`升级到`1.7.36`
+* `ehcache`由`3.9.9`升级到`3.9.11`
+* 支持`jdk21`
+
+# 3.3.4
+
+* 支持停止单个`sheet`以后继续读取其他`sheet`,使用`ExcelAnalysisStopSheetException`
+
+# 3.3.3
+
+* 兼容某些特殊的xls: 缺少每个sheet的终止符
+
+# 3.3.2
+
+* 修复`includeColumnIndexes`和`includeColumnFieldNames`在sheet后面失效的问题
+
+# 3.3.1
+
+* 修改版本发布问题
+
+# 3.3.0
+
+* 读csv会忽略BOM数据 [Issue #3137](https://github.com/alibaba/easyexcel/issues/3137)
+* 解决csv用office打开乱码的问题，写csv默认带上BOM数据
+* xlsx存在隐藏字符时需要忽略，确保和展示看到的一样
+* 新增`commons-io` 2.11.0 包
+* 在`easyexcel-parent` 包中移除测试包的`dependencyManagement`
+* 删除`org.apache.poi.hssf.usermodel.PoiUtils.java`,
+  使用反射获取 [Issue #2804](https://github.com/alibaba/easyexcel/issues/2804)
+* 默认对象反射缓存改成`ThreadLocal`
+  ,并支持设置反射缓存类型 [Issue #2792](https://github.com/alibaba/easyexcel/issues/2792)
+* 支持根据`includeColumnIndexes`和`includeColumnFieldNames`
+  排序 [Issue #2697](https://github.com/alibaba/easyexcel/issues/2697)
+* 根据文件流解析，由抛出异常改为，默认识别为csv
+
+# 3.2.1
+
+* 兼容`LocalDate` [Issue #2908](https://github.com/alibaba/easyexcel/issues/2908)
+* 优化大文件内存存储，减少内存占用 [Issue #2657](https://github.com/alibaba/easyexcel/issues/2657)
+* 在临时文件被删除的情况下能正常的读取 [Issue #2693](https://github.com/alibaba/easyexcel/issues/2693)
+* 分页读取监听器支持自定义分页条数 [Issue #2383](https://github.com/alibaba/easyexcel/issues/2383)
+
+# 3.2.0
+
+* 修复部分xlsx读取日期可能相差1秒的bug [Issue #1956](https://github.com/alibaba/easyexcel/issues/1956)
+* 修复部分数据精度和excel不匹配的bug [Issue #2805](https://github.com/alibaba/easyexcel/issues/2805)
+* 不创建对象的读支持读取原始的数据类型
+
+# 3.1.5
+
+* 提高xlsx读取兼容性：兼用ns2开头的标签
+
+# 3.1.4
+
+* 提高xlsx读取兼容性：在存在第一行很多空
+* 列的情况下，忽略空列
+
+# 3.1.3
+
+* 提高xlsx兼容性：兼容`sharedStrings.xml` 存在 `x:t`标签的情况
+
+# 3.1.2
+
+* 修复长时间运行会产生大对象的bug [Issue #2725](https://github.com/alibaba/easyexcel/issues/2725)
+
+# 3.1.1
+
+* 修复部分xlsx无法读取超链接的bug
+
+# 3.1.0
+
+* 支持jdk17,去除cglib&asm依赖，改成重新拷贝一份 [Issue #2240](https://github.com/alibaba/easyexcel/issues/2240)
+* 升级ehcache 到 3.9.9 ,为了兼容jdk17
+* 在有样式没有数据的情况下也算空行 [Issue #2294](https://github.com/alibaba/easyexcel/issues/2294)
+* 修复无法根据文件流判断csv的bug [Issue #2297](https://github.com/alibaba/easyexcel/issues/2297)
+* 修复CSV不关闭流的bug [Issue #2309](https://github.com/alibaba/easyexcel/issues/2309)
+* 修复`filed`拼接错误 [Issue #2390](https://github.com/alibaba/easyexcel/issues/2390)
+* 修复`BigIntegerStringConverter`无效的bug [Issue #2325](https://github.com/alibaba/easyexcel/issues/2325)
+* 修复03版本无法读取到公式格式的bug [Issue #2444](https://github.com/alibaba/easyexcel/issues/2444)
+* 提高类型转换兼容性 [Issue #2443](https://github.com/alibaba/easyexcel/issues/2443)
+* 捕获`setFeature`异常不影响主流程 [Issue #2054](https://github.com/alibaba/easyexcel/issues/2054)
+* 增加部分`xls`容错 [Issue #2236](https://github.com/alibaba/easyexcel/issues/2236)
+* 修复读取csv文件时`autoTrim`配置失效 [Issue #2227](https://github.com/alibaba/easyexcel/issues/2227)
+* csv支持设置读写编码 [Issue #2404](https://github.com/alibaba/easyexcel/issues/2404)
+* 读写支持`try-with-resources`语法糖
+
 # 3.0.5
+
 * 修复`ReadListener` 转换异常不抛出的问题
 
 # 3.0.4
+
 * 调整读写默认大小，防止大批量写的时候可能会full gc
 * `fill`的情况新增 `afterRowDispose`事件
 
 # 3.0.3
+
 * 修复`HeadStyle`无效的bug
 
 # 3.0.2
+
 * 大幅提升读写性能
 * 修复列宽注解没用的bug [Issue #2151](https://github.com/alibaba/easyexcel/issues/2151)
 * 修复`CellData`接收失败的的bug [Issue #2147](https://github.com/alibaba/easyexcel/issues/2147)
 
-
 # 3.0.1
+
 * 升级到正式版
 * 修复填充样式可能丢失的问题 [Issue #2124](https://github.com/alibaba/easyexcel/issues/2124)
 * 修复填充数据为空 可能NPE的bug
 * 修复填充样式可能不生效bug
 * 修复样式可能超过最大限制的bug
 * 修复写入过慢的bug
-
 
 # 3.0.0-beta3
 
@@ -105,7 +212,8 @@
 * 修复xls仅公式行 不读取的bug [Issue #1324](https://github.com/alibaba/easyexcel/issues/1324)
 * 修复xls直接读取第2页 `NPE` 的bug [Issue #1280](https://github.com/alibaba/easyexcel/issues/1280)
 * 修复填充的时候，最后一行中间有空行会创建失败的bug
-* 修复`includeColumnIndexes`不包含第列 会无法导出数据的bug [Issue #1346](https://github.com/alibaba/easyexcel/issues/1346)
+* 修复`includeColumnIndexes`不包含第列
+  会无法导出数据的bug [Issue #1346](https://github.com/alibaba/easyexcel/issues/1346)
 * 修复`@NumberFormat`注解转换double时可能会丢失精度 [Issue #1306](https://github.com/alibaba/easyexcel/issues/1306)
 
 # 2.2.3
@@ -122,11 +230,16 @@
 
 * 发布正式版
 * 修复第一行为空不会调用`invokeHeadMap`的bug [Issue #993](https://github.com/alibaba/easyexcel/issues/993)
-* 当类的属性没有按照ExcelProperty的属性index顺序排序的时候，写数据出现错乱 [Issue #1046](https://github.com/alibaba/easyexcel/issues/1046)
-* 新增支持自定义转换器 入参可以为空 实现`NullableObjectConverter` 即可  [Issue #1084](https://github.com/alibaba/easyexcel/issues/1084)
+*
+
+当类的属性没有按照ExcelProperty的属性index顺序排序的时候，写数据出现错乱 [Issue #1046](https://github.com/alibaba/easyexcel/issues/1046)
+
+* 新增支持自定义转换器 入参可以为空 实现`NullableObjectConverter`
+  即可  [Issue #1084](https://github.com/alibaba/easyexcel/issues/1084)
 * 修复xls丢失结束标记的情况下 会漏读最后一行
 * 修复填充的时候 多次`forceNewRow` 空指针的bug [Issue #1201](https://github.com/alibaba/easyexcel/issues/1201)
-* 修复`table`、`sheet`中创建的拦截器不执行`workbook`事件的bug [Issue #1202](https://github.com/alibaba/easyexcel/issues/1202)
+* 修复`table`、`sheet`中创建的拦截器不执行`workbook`
+  事件的bug [Issue #1202](https://github.com/alibaba/easyexcel/issues/1202)
 
 # 2.2.0-beta2
 
